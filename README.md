@@ -10,18 +10,18 @@ var apiClient = new futapi([options]);
 ```
 ##### Options
 - saveCookie - (default: false) stores the cookiejar after login
-- saveCookiePath - (default: null) path to the cookiejar 
+- saveCookiePath - (default: null) path to the cookiejar
 - loadCookieFromSavePath - (default: false) loads the cookiejar from the saveCookiePath
 
 ## Login
 ```javascript
-    
+
   function twoFactorCodeCb(next){
       /* send your authentication code with the "next" method */
       next("123456");
   }
 
-    
+
     apiClient.login("username","password","secret", "platform",
     	twoFactorCodeCb,
     	function(error,response){
@@ -29,9 +29,9 @@ var apiClient = new futapi([options]);
         	return console.log("Unable to login.");
         }
     	console.log("logged in.");
-		
+
 		apiClient.getCredits(function(error, response){ });
-		
+
     });
 ```
 * platform: "ps3","ps4","pc","x360","xone"
@@ -138,7 +138,7 @@ var apiClient = new futapi([options]);
 * response: Object
     * tradeIdList: []
         * id: number
-        
+
 ## Watchlist
 ```javascript
   apiClient.getWatchlist(function(error, response){ });
@@ -151,7 +151,7 @@ var apiClient = new futapi([options]);
   apiClient.search({type: "player", lev: "gold", maskedDefId: 183907, pos: "CB" }, function(error, response){ });
 ```
 
-* filter 
+* filter
     * searchFilterBase
         * type: string 		-> player, training, development
         * start: number 	-> page
@@ -161,7 +161,7 @@ var apiClient = new futapi([options]);
         * minb: number		-> min buy
         * maxb: number		-> max buy
         * lev: string		-> bronze, silver, gold
-        
+
     * playerSearchFilter extends searchFilterBase
         * maskedDefId: number 	-> baseId
         * rare: string 		-> SP
@@ -171,16 +171,16 @@ var apiClient = new futapi([options]);
         * leag: number		-> leagueId
         * team: number		-> teamId
         * playStyle: number	-> playerStyleId
-        
+
     * consumableFilter extends searchFilterBase
         * cat: string		-> playerTraining, GKTraining, position, playStyle, managerLeagueModifier, contract, fitness, healing
-        
+
     * positionChangeSearchFilter extends consumableFilter
         * pos: string		-> LB-LWB (OLD-NEW)
-        
+
     * playerStyleSearchFilter extends consumableFilter
         * playStyle: number	-> playerStyleId
-    
+
 * response: -> see tradepile response
 
 ## Place bid
@@ -201,9 +201,9 @@ var apiClient = new futapi([options]);
 * buyNowPrice: number
 * duration: number -> seconds -> valid values 3600 = 1h, 10800 = 3h, 21600 = 6h, 43200 = 12h, 86400 = 1d, 259200 = 3d
 
-* response: 
+* response:
 	* id: number
-	
+
 ## Auction status
 ```javascript
   apiClient.getStatus([tradeIds], function(error, response){ });
@@ -239,7 +239,7 @@ var apiClient = new futapi([options]);
         * id: number
         * pile: string
         * success: boolean
-        
+
 ## send to tradepile
 ```javascript
   apiClient.sendToClub(itemDataId, function(error, response){ });
@@ -250,7 +250,7 @@ var apiClient = new futapi([options]);
         * id: number
         * pile: string
         * success: boolean
-        
+
 ## Quick sell
 ```javascript
   apiClient.quickSell(itemDataId, function(error, response){ });
@@ -260,7 +260,17 @@ var apiClient = new futapi([options]);
     * items: []
         * id: number
     * totalCredits: number
-    
+
+## Remove sold items from tradePile
+```javascript
+  apiClient.removeSoldItemsFromTradePile(function(error,response){});
+```
+
+## Get unassigned purchased items
+```javascript
+  apiClient.getUnassignedPurchasedItems(function(error,response){});
+```
+
 ## Functions
 
 ### Validate price/coins
